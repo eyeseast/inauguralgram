@@ -45,6 +45,8 @@ exports.subscribe_GET = function(req, res) {
 
 // POST handler to process new images
 exports.subscribe_POST = function(req, res) {
+    console.log(req.get('X-Hub-Signature'));
+    console.log(req.get('Content-Type'));
     console.dir(req.body);
     res.send(200);
 };
