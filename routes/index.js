@@ -32,3 +32,19 @@ exports.index = function(req, res){
         }
     });
 };
+
+// GET handler to verify subscriptions
+exports.subscribe_GET = function(req, res) {
+    if (req.query['hub.mode'] === 'subscribe') {
+        res.send(req.query['hub.challenge']);
+        console.log('Subscribe: ' + req.query['hub.challenge']);
+    } else {
+        res.send(400);
+    }
+};
+
+// POST handler to process new images
+exports.subscribe_POST = function(req, res) {
+    console.dir(req.body);
+    res.send(200);
+};
