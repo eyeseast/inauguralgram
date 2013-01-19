@@ -13,15 +13,20 @@
     "express": "3.0.6",
     "hjs": "*",
     "less-middleware": "*",
-    "redis": "*",
-    "socket.io": "*",
+    "hiredis": "0.1.14",
+    "redis": "0.8.2",
+    "socket.io": "0.9.13",
     "underscore": "*",
-    "instagram-node-lib": "*"
+    "instagram-node-lib": "0.1.1"
   },
-  "description": "ERROR: No README.md file found!",
+  "description": "A realtime view of instagram photos near the presidential inauguration. This should be interesting for one day.",
   "main": "app.js",
   "devDependencies": {},
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eyeseast/inauguralgram.git"
+  },
   "author": "Chris Amico",
-  "license": "BSD"
+  "license": "BSD",
+  "readmeFilename": "README.md"
 }

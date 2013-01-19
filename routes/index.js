@@ -18,7 +18,7 @@ exports.index = function(req, res){
     Instagram.media.search({
         lat: US_CAPITOL.lat,
         lng: US_CAPITOL.lng,
-        distance: 5000,
+        distance: 2000,
         complete: function(data, pagination) {
             if (req.xhr) {
                 res.json({ data: data, pagination: pagination});
