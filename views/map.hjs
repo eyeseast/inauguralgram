@@ -2,64 +2,115 @@
 <html>
   <head>
     <title>Near the Capitol</title>
-
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
     <![endif]-->
     <style type="text/css">
-    body { 
-        font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        height: 100%;
+    /* Sticky footer styles
+    -------------------------------------------------- */
+
+    html,
+    body {
+      height: 100%;
+      /* The html and body elements cannot have any padding or margin. */
     }
 
-    a {
-      color: #00B7FF;
-    }
-
+    /* Wrapper for page content to push down footer */
     #map {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        margin: auto;
-    }
-
-    .instagram-photo-icon {
-        border: 1px solid #fff;
+      min-height: 100%;
+      height: auto !important;
+      height: 100%;
+      /* Negative indent footer by it's height */
+      margin: 0 auto -60px;
     }
 
     footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        margin: 0;
-        padding: .25em 1em .25em 1em;
-        z-index: 10;
-        background-color: #fff;
-        border-top: 1px solid #ddd;
+      background-color: #000;
+      background-color: rgba(0,0,0, .8);
+      z-index: 10;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding-top: .5em;
+      color: #aaa;
     }
+
+    footer:hover {
+        color: #fff;
+    }
+
+    footer .embed {
+        text-align: right;
+    }
+
+    input[readonly] {
+        cursor: inherit;
+    }
+
+    /* Lastly, apply responsive CSS fixes as necessary */
+    @media (max-width: 767px) {
+      footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+
+    /* put a minimal border on map images */
+    .instagram-photo-icon {
+        border: 1px solid #eee;
+    }
+
     </style>
   </head>
   <body>
     <div id="map"></div>
 
     <footer>
-        <p>
-            Instagram photos near the US Capitol in the days surrounding Barack Obama's inauguration for a second term.
-            Built by Chris Amico.
-        </p>
+        <div class="container">
+            <div class="row">
+                <p class="span8">
+                    <a href="http://instagram.com">Instagram</a> photos near the US Capitol in the days surrounding Barack Obama's inauguration for a second term.
+                    Built by <a href="http://chrisamico.com">Chris Amico</a> for no good reason.
+                </p>
+                <div class="span4 embed">
+                    <a href="#embed-modal" data-toggle="modal" data-target="#embed-modal">Embed</a>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <!-- Modal Overlays -->
+    <div id="embed-modal" class="modal hide fade" tabindex="-1" role="dialog">
+        <div class="modal-header">
+            <h3>Embed:</h3>
+        </div>
+        <div class="modal-body">
+            <p>Copy and paste this code into any blog or web page:</p>
+            <div class='col'>
+              <div id='embed-code-field'>
+                <input type='text' length='30' value='' id='embed-code' readonly>
+              </div>
+              <p><em>Press <code>Ctrl+C</code> or <code>Command+C</code> to copy the embed code.</em></p>
+              <p>Adjust the map's size by editing the <code>width</code> and <code>height</code> values in the code.</p>
+              <p class="quiet small">Press <code>escape</code> to close this window</p>
+            </div>
+        </div>
+    </div>
+
     <!-- all my js -->
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
     <script type="text/javascript">
-    //$('#map').height($(window).height());
+    // set embed location
+    $('#embed-code').val(window.location.href);
+
+    // stash our data
     var data = {{{photos}}};
 
     var US_CAPITOL = {
