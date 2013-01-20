@@ -1,0 +1,10 @@
+<div class="modal-body">
+    <img src="{{images.standard_resolution.url}}" id="the-big-image" height="612" width="612">
+</div>
+<div class="modal-footer">
+    <p>
+    {{#caption}}
+        {{text}}
+    {{/caption}}
+    </p>
+</div>

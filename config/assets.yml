@@ -1,0 +1,11 @@
+compress_assets: off
+gzip_assets: off
+template_extension: hjs
+template_function: Hogan.compile
+
+javascripts:
+    app:
+        - public/bootstrap/js/bootstrap.js
+        - public/components/underscore/underscore.js
+        - public/components/hogan/dist/hogan-3.0.0.amd.js
+        - views/client/*.hjs

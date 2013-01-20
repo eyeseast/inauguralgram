@@ -28,8 +28,8 @@ app.configure('development', function(){
 });
 
 // home
-app.get('/', routes.index);
-app.get('/map', routes.photo_map);
+app.get('/photos', routes.index);
+app.get('/', routes.photo_map);
 
 // subscriptions
 app.get('/subscribe', routes.subscribe_GET);

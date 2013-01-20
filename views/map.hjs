@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Near the Capitol</title>
-    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -101,11 +101,23 @@
         </div>
     </div>
 
-    <!-- all my js -->
+    <div id="image-modal" class="modal hide fade" tabindex="-1">
+        <div class="modal-body">
+            <img src="" id="the-big-image" height="612" width="612">
+        </div>
+        <div class="modal-footer">
+            <p id="image-footer"></p>
+        </div>
+    </div>
+
+    <!-- all my js 
     <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/components/hogan/dist/hogan-3.0.0.amd.js"></script>
+    -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+    <script type="text/javascript" src="/assets/app.js"></script>
     <script type="text/javascript">
     // set embed location
     $('#embed-code').val(window.location.href);
@@ -118,11 +130,26 @@
         lng: {{{center.lng}}}
     };
 
+    // modal helpers
+    var img = $('#the-big-image')
+      , imageModal = $('#image-modal')
+      , imageFooter = $('#image-footer');
+
     var map = L.map('map', { maxZoom: 17 })
         .addLayer(L.tileLayer('http://{s}.tiles.mapbox.com/v3/chrisamico.map-xg7z6qm5/{z}/{x}/{y}.png'))
         .setView([US_CAPITOL.lat, US_CAPITOL.lng], 15);
 
-    var markers = L.featureGroup().addTo(map);
+    // store markers in a feature group
+    // this lets us handle events in one place
+    var markers = L.featureGroup().addTo(map)
+        .on('click', function(e) {
+            // the actual marker is e.layer
+            // we stash instagram data on each marker as `data`
+            imageModal.html(JST.imagemodal.render(e.layer.data));
+            imageModal.modal('show');
+        });
+
+
     _.each(data, function(d, i) {
         // create an icon with this image
         var icon = L.icon({
