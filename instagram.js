@@ -1,3 +1,5 @@
+// centralizing instagram stuff
+
 var Instagram = require('instagram-node-lib')
   , _ = require('underscore');
 

@@ -3,10 +3,10 @@
  * GET home page.
  */
 
-var Instagram = require('instagram-node-lib');
+var Instagram = require('../instagram')
+  , _ = require('underscore')
+  , db = require('../db');
 
-Instagram.set('client_id', process.env.INSTAGRAM_CLIENT_ID);
-Instagram.set('client_secret', process.env.INSTAGRAM_CLIENT_SECRET);
 
 // constants
 var US_CAPITOL = {
@@ -14,24 +14,35 @@ var US_CAPITOL = {
     lng: -77.0092321
 };
 
+
 exports.index = function(req, res){
-    Instagram.media.search({
-        lat: US_CAPITOL.lat,
-        lng: US_CAPITOL.lng,
-        distance: 2000,
-        complete: function(data, pagination) {
-            if (req.xhr) {
-                res.json({ data: data, pagination: pagination});
-            } else {
-                res.render('index', { 
-                    data: data, 
-                    pagination: pagination,
-                    title: "Hello, photos!"
-                });
-            }
+    db.hvals(Instagram.key, function(err, data) {
+        if (err) { throw err; };
+        data = data.map(JSON.parse);
+        if (req.xhr) {
+            res.json(data);
+        } else {
+            res.render('index', {
+                photos: data,
+                center: US_CAPITOL
+            });
         }
     });
 };
+
+
+// show map of logged photos
+exports.photo_map = function(req, res) {
+    db.hvals(Instagram.key, function(err, data) {
+        if (err) { throw err; };
+        data = data.map(JSON.parse);
+        res.render('map', {
+            photos: JSON.stringify(data),
+            center: US_CAPITOL
+        });
+    })
+}
+
 
 // GET handler to verify subscriptions
 exports.subscribe_GET = function(req, res) {
@@ -42,6 +53,7 @@ exports.subscribe_GET = function(req, res) {
         res.send(400);
     }
 };
+
 
 // POST handler to process new images
 exports.subscribe_POST = function(req, res) {

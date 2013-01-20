@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Near the Capitol</title>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+    <![endif]-->
+    <style type="text/css">
+    body { 
+        font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    a {
+      color: #00B7FF;
+    }
+
+    #map {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        margin: auto;
+    }
+
+    .instagram-photo-icon {
+        border: 1px solid #fff;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin: 0;
+        padding: .25em 1em .25em 1em;
+        z-index: 10;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <footer>
+        <p>
+            Instagram photos near the US Capitol in the days surrounding Barack Obama's inauguration for a second term.
+            Built by Chris Amico.
+        </p>
+    </footer>
+    <!-- all my js -->
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+    <script type="text/javascript">
+    //$('#map').height($(window).height());
+    var data = {{{photos}}};
+
+    var US_CAPITOL = {
+        lat: {{{center.lat}}},
+        lng: {{{center.lng}}}
+    };
+
+    var map = L.map('map', { maxZoom: 17 })
+        .addLayer(L.tileLayer('http://{s}.tiles.mapbox.com/v3/chrisamico.map-xg7z6qm5/{z}/{x}/{y}.png'))
+        .setView([US_CAPITOL.lat, US_CAPITOL.lng], 15);
+
+    var markers = L.featureGroup().addTo(map);
+    _.each(data, function(d, i) {
+        // create an icon with this image
+        var icon = L.icon({
+            iconUrl: d.images.thumbnail.url,
+            iconSize: [30, 30],
+            className: "instagram-photo-icon"
+        });
+
+        // add each image to the map as a marker
+        var marker = L.marker([d.location.latitude, d.location.longitude], {
+            icon: icon,
+            riseOnHover: true,
+            title: d.caption ? d.caption.text : ""
+        });
+
+        // stash the full instagram data on the marker
+        marker.data = d;
+
+        markers.addLayer(marker);
+    });
+    </script>
+  </body>
+</html>
