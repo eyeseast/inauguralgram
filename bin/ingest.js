@@ -4,21 +4,35 @@ var Instagram = require('../instagram')
   , db = require('../db')
   , redis = require('redis');
 
+function complete(data) {
+    var images = data.reduce(function(memo, image) {
+        memo[image.id] = JSON.stringify(image);
+        return memo;
+    }, {});
+
+    db.hmset(Instagram.key, images, redis.print);
+}
+
 function fetch() {
+
+    // US Capitol, the defaul
     Instagram.fetch({
-        complete: function(data) {
-            var images = data.reduce(function(memo, image) {
-                memo[image.id] = JSON.stringify(image);
-                return memo;
-            }, {});
+        complete: complete,
 
-            db.hmset(Instagram.key, images, redis.print);
-        },
+        error: function(err) {
+            console.log(err);
+        }
+    });
 
+    // a little farther down the mall
+    Instagram.fetch({
+        lat: 38.8897,
+        lng: -77.0238,
+        complete: complete,
         error: function(err) {
             console.log(err);
         }
     });
 }
 
-setInterval(fetch, 15 * 1000);
+setInterval(fetch, 30 * 1000);
