@@ -2,6 +2,7 @@
 
 var Instagram = require('../instagram')
   , db = require('../db')
+  , indexer = require('./indexer')
   , redis = require('redis');
 
 function complete(data) {
@@ -10,7 +11,9 @@ function complete(data) {
         return memo;
     }, {});
 
-    db.hmset(Instagram.key, images, redis.print);
+    db.hmset(Instagram.key, images, function(err, reply) {
+        indexer();
+    });
 }
 
 function fetch() {
@@ -34,5 +37,6 @@ function fetch() {
         }
     });
 }
+
 
 setInterval(fetch, 30 * 1000);

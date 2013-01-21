@@ -24,5 +24,6 @@ Instagram.fetch = function(params) {
 }
 
 Instagram.key = "instagram:photos";
+Instagram.index_key = "instagram:latest";
 
 module.exports = Instagram;
