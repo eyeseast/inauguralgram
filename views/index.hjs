@@ -2,18 +2,21 @@
 <html>
   <head>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.min.css">
 
   </head>
   <body>
-    <h1>{{ title }}</h1>
-    <p>Close to the Capitol...</p>
+    <header class="container">
+      <h1>Ground-level</h1>
+      <p>Inauguration 2013. Close to the Capitol...</p>
+    </header>
 
-    <div id="images">
+    <div id="images" class="container">
         {{#photos}}
-            <a href="{{link}}">
-              <img src="{{ images.thumbnail.url }}">
-            </a>
+        <a href="{{link}}" target="_blank">
+            <img src="{{images.thumbnail.url}}">
+        </a>
         {{/photos}}
     </div>
 

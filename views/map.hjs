@@ -3,6 +3,7 @@
   <head>
     <title>Near the Capitol</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -51,9 +52,10 @@
 
     /* Lastly, apply responsive CSS fixes as necessary */
     @media (max-width: 767px) {
+      body {
+        padding: 0;
+      }
       footer {
-        margin-left: -20px;
-        margin-right: -20px;
         padding-left: 20px;
         padding-right: 20px;
       }
@@ -90,6 +92,7 @@
                 <p class="span8">
                     This map shows <a href="http://instagram.com">Instagram</a> photos near the US Capitol in the days surrounding Barack Obama's inauguration for a second term.
                     Built by <a href="http://chrisamico.com">Chris Amico</a> for no good reason.
+                    <a href="/photos">See all photos.</a>
                 </p>
                 <div class="span4 embed">
                     <a href="#embed-modal" data-toggle="modal" data-target="#embed-modal">Embed</a>
@@ -150,7 +153,7 @@
       , imageModal = $('#image-modal')
       , imageFooter = $('#image-footer');
 
-    var map = L.map('map', { maxZoom: 17 })
+    var map = L.map('map', { maxZoom: 17, attributionControl: false })
         .addLayer(L.tileLayer('http://{s}.tiles.mapbox.com/v3/chrisamico.map-xg7z6qm5/{z}/{x}/{y}.png'))
         .setView([US_CAPITOL.lat, US_CAPITOL.lng], 15);
 

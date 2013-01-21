@@ -16,8 +16,12 @@ var US_CAPITOL = {
 
 
 exports.index = function(req, res){
-    db.hvals(Instagram.key, function(err, data) {
-        if (err) { throw err; };
+    var limit = req.query.limit || 200
+      , start = req.query.start || 0;
+
+    db.zrevrange(Instagram.index_key, start, limit, function(err, data) {
+        if (err) { throw err; };        
+
         data = data.map(JSON.parse);
         if (req.xhr) {
             res.json(data);
@@ -35,8 +39,10 @@ exports.index = function(req, res){
 exports.photo_map = function(req, res) {
     var limit = req.query.limit || 500
       , start = req.query.start || 0;
+
     db.zrevrange(Instagram.index_key, start, limit, function(err, data) {
         if (err) { throw err; };
+        
         data = data.map(JSON.parse);
         res.render('map', {
             photos: JSON.stringify(data),
