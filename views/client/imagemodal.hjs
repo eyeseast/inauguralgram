@@ -6,7 +6,8 @@
 <div class="modal-footer">
     <p>
     {{#caption}}
-        {{text}}
+        {{text}}<br>
+        &mdash;<a href="http://instagram.com/{{from.username}}">{{from.full_name}}</a>
     {{/caption}}
     </p>
 </div>
