@@ -1,5 +1,7 @@
 <div class="modal-body">
-    <img src="{{images.standard_resolution.url}}" id="the-big-image" height="612" width="612">
+    <a href="{{link}}" target="_blank">
+        <img src="{{images.standard_resolution.url}}" id="the-big-image" height="612" width="612">
+    </a>
 </div>
 <div class="modal-footer">
     <p>

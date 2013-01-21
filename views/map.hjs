@@ -65,6 +65,21 @@
     }
 
     </style>
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-32005313-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
   </head>
   <body>
     <div id="map"></div>
@@ -73,7 +88,7 @@
         <div class="container">
             <div class="row">
                 <p class="span8">
-                    <a href="http://instagram.com">Instagram</a> photos near the US Capitol in the days surrounding Barack Obama's inauguration for a second term.
+                    This map shows <a href="http://instagram.com">Instagram</a> photos near the US Capitol in the days surrounding Barack Obama's inauguration for a second term.
                     Built by <a href="http://chrisamico.com">Chris Amico</a> for no good reason.
                 </p>
                 <div class="span4 embed">

@@ -1,4 +1,4 @@
-compress_assets: off
+compress_assets: on
 gzip_assets: off
 template_extension: hjs
 template_function: Hogan.compile
