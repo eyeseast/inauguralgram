@@ -155,7 +155,7 @@
 
     var map = L.map('map', { maxZoom: 17, attributionControl: false })
         .addLayer(L.tileLayer('http://{s}.tiles.mapbox.com/v3/chrisamico.map-xg7z6qm5/{z}/{x}/{y}.png'))
-        .setView([US_CAPITOL.lat, US_CAPITOL.lng], 15);
+        .setView([US_CAPITOL.lat, US_CAPITOL.lng], 16);
 
     // store markers in a feature group
     // this lets us handle events in one place
