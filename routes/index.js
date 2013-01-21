@@ -33,14 +33,16 @@ exports.index = function(req, res){
 
 // show map of logged photos
 exports.photo_map = function(req, res) {
-    db.hvals(Instagram.key, function(err, data) {
+    var limit = req.query.limit || 500
+      , start = req.query.start || 0;
+    db.zrevrange(Instagram.index_key, start, limit, function(err, data) {
         if (err) { throw err; };
         data = data.map(JSON.parse);
         res.render('map', {
             photos: JSON.stringify(data),
             center: US_CAPITOL
         });
-    })
+    });
 }
 
 
